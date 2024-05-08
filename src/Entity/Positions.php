@@ -5,15 +5,13 @@ namespace App\Entity;
 use App\Repository\PositionsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-
 #[ORM\Entity(repositoryClass: PositionsRepository::class)]
-
 class Positions
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    
+
     private ?int $id = null;
 
     public function getId(): ?int
@@ -22,15 +20,15 @@ class Positions
     }
 
     #[ORM\Column(length: 50)]
-    
-    private ?string $working_shape=null;
+
+    private ?string $working_shape = null;
 
     public function getWorkingShape(): ?string
     {
         return $this->working_shape;
     }
 
-    public function setWorkingShape(string $working_shape): self
+    public function setWorkingShape(string $working_shape): static
     {
         $this->working_shape = $working_shape;
 
@@ -38,17 +36,33 @@ class Positions
     }
 
     #[ORM\Column(length: 255)]
-    
-    private ?string $explanation_working_shape=null;
 
-    public function getExplanationWorkingShape(): ?string
+    private ?string $working_shape_explanations = null;
+
+    public function getWorkingShapeExplanations(): ?string
     {
-        return $this->explanation_working_shape;
+        return $this->working_shape_explanations;
     }
 
-    public function setExplanationWorkingShape(string $explanation_working_shape): self
+    public function setWorkingShapeExplanations(string $working_shape_explanations): static
     {
-        $this->explanation_working_shape = $explanation_working_shape;
+        $this->working_shape_explanations = $working_shape_explanations;
+
+        return $this;
+    }
+
+    #[ORM\Column(length: 255)]
+
+    private ?string $working_shape_image = null;
+
+    public function getWorkingShapeImage()
+    {
+        return $this->working_shape_image;
+    }
+
+    public function setWorkingShapeImage(string $working_shape_image): static
+    {
+        $this->working_shape_image = $working_shape_image;
 
         return $this;
     }

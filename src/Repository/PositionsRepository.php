@@ -1,5 +1,5 @@
 <?php
-    // src\Controller\PositionsController.php
+// src\Controller\PositionsController.php
 
 namespace App\Repository;
 
@@ -24,68 +24,40 @@ class PositionsRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return AllWorkingShapes[]
+     * @return AllWorkingShapes[] Returns an array of Positions objects
      */
     public function getAllWorkingShapes(): array
     {
         $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery('SELECT shape.id, shape.working_shape, shape.explanation_working_shape FROM App\Entity\Positions shape');
+        $query = $entityManager->createQuery(
+            'SELECT shape.id, 
+                    shape.working_shape, 
+                    shape.working_shape_explanations, 
+                    shape.working_shape_image 
+            FROM App\Entity\Positions shape'
+        );
+
         $positions = $query->getResult();
         return $positions;
     }
 
     /**
-     * @return OneWorkingShape[]
+     * @return OneWorkingShape[] Returns an array of One Position object
      */
-    public function getOneWorkingShape(int $id):array
+    public function getOneWorkingShape(int $id): array
     {
         $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery('SELECT shape.working_shape, shape.explanation_working_shape FROM App\Entity\Positions shape WHERE shape.id = :id')->setParameter('id', $id);
+        $query = $entityManager->createQuery(
+            'SELECT shape.working_shape, 
+                    shape.working_shape_explanations, 
+                    shape.working_shape_image 
+            FROM App\Entity\Positions shape 
+            WHERE shape.id = :id'
+        )->setParameter('id', $id);
+
         $position = $query->getResult();
         return $position;
     }
-    // public function add(Positions $entity, bool $flush = false): void
-    // {
-    //     $this->getEntityManager()->persist($entity);
-
-    //     if ($flush) {
-    //         $this->getEntityManager()->flush();
-    //     }
-    // }
-
-    // public function remove(Positions $entity, bool $flush = false): void
-    // {
-    //     $this->getEntityManager()->remove($entity);
-
-    //     if ($flush) {
-    //         $this->getEntityManager()->flush();
-    //     }
-    // }
-
-//    /**
-//     * @return Positions[] Returns an array of Positions objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Positions
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
