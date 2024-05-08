@@ -23,6 +23,23 @@ class AttacksRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return AttacksCount[] Returns an array of Attacks Count objects
+     */
+    public function getCountAttacks(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT COUNT (atck.attack_type)
+            AS count
+            FROM App\Entity\Attacks atck'
+        );
+
+        $countAttacks = $query->getResult();
+        return $countAttacks;
+    }
+
+    /**
      * @return AllAttacks[] Returns an array of All Attacks objects
      */
     public function getAllAttacks(): array

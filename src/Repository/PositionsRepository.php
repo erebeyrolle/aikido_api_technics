@@ -24,6 +24,23 @@ class PositionsRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return PositionsCount[] Returns an array of Positions Count objects
+     */
+    public function getCountPositions(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT COUNT (shape.working_shape)
+            AS count
+            FROM App\Entity\Positions shape'
+        );
+
+        $countPositions = $query->getResult();
+        return $countPositions;
+    }
+
+    /**
      * @return AllWorkingShapes[] Returns an array of Positions objects
      */
     public function getAllWorkingShapes(): array
