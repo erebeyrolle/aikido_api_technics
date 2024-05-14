@@ -30,7 +30,7 @@ class AttacksRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT COUNT (atck.attack_type)
+            'SELECT COUNT (atck.id)
             AS count
             FROM App\Entity\Attacks atck'
         );

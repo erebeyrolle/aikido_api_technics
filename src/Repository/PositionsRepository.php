@@ -31,7 +31,7 @@ class PositionsRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT COUNT (shape.working_shape)
+            'SELECT COUNT (shape.id)
             AS count
             FROM App\Entity\Positions shape'
         );
