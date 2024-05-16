@@ -14,7 +14,7 @@ final class Version20240511131034 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Technic Forms Table Creation';
     }
 
     public function up(Schema $schema): void

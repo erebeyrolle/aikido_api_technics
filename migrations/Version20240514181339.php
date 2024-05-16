@@ -14,7 +14,7 @@ final class Version20240514181339 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Technics Table Modifying Field Type';
     }
 
     public function up(Schema $schema): void
