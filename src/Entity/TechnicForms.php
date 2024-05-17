@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TechnicFormsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class TechnicForms
 
     #[ORM\Column(length: 255)]
     private ?string $technic_form_image = null;
+
+    #[ORM\OneToMany(mappedBy: 'technic_form', targetEntity: Technics::class)]
+    private Collection $technics;
+
+    public function __construct()
+    {
+        $this->technics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class TechnicForms
     public function setTechnicFormImage(string $technic_form_image): static
     {
         $this->technic_form_image = $technic_form_image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technics>
+     */
+    public function getTechnics(): Collection
+    {
+        return $this->technics;
+    }
+
+    public function addTechnic(Technics $technic): static
+    {
+        if (!$this->technics->contains($technic)) {
+            $this->technics->add($technic);
+            $technic->setTechnicForm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnic(Technics $technic): static
+    {
+        if ($this->technics->removeElement($technic)) {
+            // set the owning side to null (unless already changed)
+            if ($technic->getTechnicForm() === $this) {
+                $technic->setTechnicForm(null);
+            }
+        }
 
         return $this;
     }

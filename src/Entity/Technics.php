@@ -23,6 +23,10 @@ class Technics
     #[ORM\Column(length: 255)]
     private ?string $technic_video_link = null;
 
+    #[ORM\ManyToOne(inversedBy: 'technics')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TechnicForms $technic_form = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Technics
     public function setTechnicVideoLink(string $technic_video_link): static
     {
         $this->technic_video_link = $technic_video_link;
+
+        return $this;
+    }
+
+    public function getTechnicForm(): ?TechnicForms
+    {
+        return $this->technic_form;
+    }
+
+    public function setTechnicForm(?TechnicForms $technic_form): static
+    {
+        $this->technic_form = $technic_form;
 
         return $this;
     }
