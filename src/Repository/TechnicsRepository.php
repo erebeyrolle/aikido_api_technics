@@ -47,13 +47,17 @@ class TechnicsRepository extends ServiceEntityRepository
 
         $query = $entityManager->createQuery(
             'SELECT tec.id, 
-                    tec.technic_name, 
+                    tec.technic_name,
+                    tecfo.technic_form_name,
                     tec.technic_explanations,
-                    tec.technic_video_link 
-            FROM App\Entity\Technics tec'
+                    tec.technic_video_link
+            FROM App\Entity\Technics tec
+                INNER JOIN App\Entity\TechnicForms tecfo
+            '
         );
 
         $technics = $query->getResult();
+        //dd($technics);
         return $technics;
     }
 
@@ -66,10 +70,12 @@ class TechnicsRepository extends ServiceEntityRepository
 
         $query = $entityManager->createQuery(
             'SELECT tec.id, 
-                    tec.technic_name, 
+                    tec.technic_name,
+                    --tecfo.technic_form_name,
                     tec.technic_explanations,
-                    tec.technic_video_link 
+                    tec.technic_video_link                    
             FROM App\Entity\Technics tec
+            --INNER JOIN App\Entity\TechnicForms tecfo
             WHERE tec.id = :id'
         )->setParameter('id', $id);
 
