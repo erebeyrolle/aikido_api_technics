@@ -25,14 +25,6 @@ class TechnicForms
     #[ORM\Column(length: 255)]
     private ?string $technic_form_image = null;
 
-    #[ORM\OneToMany(mappedBy: 'technic_form', targetEntity: Technics::class)]
-    private Collection $technics;
-
-    public function __construct()
-    {
-        $this->technics = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -72,6 +64,14 @@ class TechnicForms
         $this->technic_form_image = $technic_form_image;
 
         return $this;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'technic_form', targetEntity: Technics::class)]
+    private Collection $technics;
+
+    public function __construct()
+    {
+        $this->technics = new ArrayCollection();
     }
 
     /**
