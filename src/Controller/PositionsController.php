@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PositionsController extends AbstractController
 {
-    #[Route('/api/working_shapes', name: 'all_working_shapes', methods: ['GET'])]
+    #[Route('/api/workingshapes', name: 'all_working_shapes', methods: ['GET'])]
     public function showAll(PositionsRepository $positionsRepository, PositionsRepository $countPositions): JsonResponse
     {
         $countPositions = $positionsRepository->getCountPositions();
@@ -20,7 +20,7 @@ class PositionsController extends AbstractController
         return $this->json($result);
     }
 
-    #[Route('/api/working_shapes/{id}', name: 'one_working_shape', methods: ['GET'])]
+    #[Route('/api/workingshapes/{id}', name: 'one_working_shape', methods: ['GET'])]
     public function showOne(PositionsRepository $positionsRepository, int $id): JsonResponse
     {
         $position = $positionsRepository->getOneWorkingShape($id);
