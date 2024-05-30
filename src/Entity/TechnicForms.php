@@ -25,6 +25,14 @@ class TechnicForms
     #[ORM\Column(length: 255)]
     private ?string $technic_form_image = null;
 
+    #[ORM\ManyToMany(targetEntity: Technics::class, mappedBy: 'form')]
+    private Collection $technics;
+
+    public function __construct()
+    {
+        $this->technics = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,14 +74,6 @@ class TechnicForms
         return $this;
     }
 
-    #[ORM\OneToMany(mappedBy: 'technic_form', targetEntity: Technics::class)]
-    private Collection $technics;
-
-    public function __construct()
-    {
-        $this->technics = new ArrayCollection();
-    }
-
     /**
      * @return Collection<int, Technics>
      */
@@ -86,7 +86,7 @@ class TechnicForms
     {
         if (!$this->technics->contains($technic)) {
             $this->technics->add($technic);
-            $technic->setTechnicForm($this);
+            $technic->addForm($this);
         }
 
         return $this;
@@ -95,10 +95,7 @@ class TechnicForms
     public function removeTechnic(Technics $technic): static
     {
         if ($this->technics->removeElement($technic)) {
-            // set the owning side to null (unless already changed)
-            if ($technic->getTechnicForm() === $this) {
-                $technic->setTechnicForm(null);
-            }
+            $technic->removeForm($this);
         }
 
         return $this;

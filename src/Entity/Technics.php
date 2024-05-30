@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TechnicsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class Technics
 
     #[ORM\Column(length: 255)]
     private ?string $technic_video_link = null;
+
+    #[ORM\ManyToMany(targetEntity: TechnicForms::class, inversedBy: 'technics')]
+    private Collection $form;
+
+    public function __construct()
+    {
+        $this->form = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,18 +74,26 @@ class Technics
         return $this;
     }
 
-    #[ORM\ManyToOne(inversedBy: 'technics')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?TechnicForms $technic_form = null;
-
-    public function getTechnicForm(): ?TechnicForms
+    /**
+     * @return Collection<int, TechnicForms>
+     */
+    public function getForm(): Collection
     {
-        return $this->technic_form;
+        return $this->form;
     }
 
-    public function setTechnicForm(?TechnicForms $technic_form): static
+    public function addForm(TechnicForms $form): static
     {
-        $this->technic_form = $technic_form;
+        if (!$this->form->contains($form)) {
+            $this->form->add($form);
+        }
+
+        return $this;
+    }
+
+    public function removeForm(TechnicForms $form): static
+    {
+        $this->form->removeElement($form);
 
         return $this;
     }
