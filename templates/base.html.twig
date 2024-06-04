@@ -15,10 +15,14 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'header.html.twig' %}
         {% block body %}
+        <main>
             <section>
                 <img src="{{ asset('images/under-construction.gif')}}" style="display:block; margin:auto;">
             </section>
+        </main>
         {% endblock %}
+        {% include 'footer.html.twig' %}
     </body>
 </html>

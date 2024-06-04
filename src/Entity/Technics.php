@@ -23,7 +23,7 @@ class Technics
     private ?string $technic_explanations = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $technic_video_link = null;
+    private ?string $technic_image = null;
 
     #[ORM\ManyToMany(targetEntity: TechnicForms::class, inversedBy: 'technics')]
     private Collection $form;
@@ -64,12 +64,12 @@ class Technics
 
     public function getTechnicVideoLink(): ?string
     {
-        return $this->technic_video_link;
+        return $this->technic_image;
     }
 
-    public function setTechnicVideoLink(string $technic_video_link): static
+    public function setTechnicVideoLink(string $technic_image): static
     {
-        $this->technic_video_link = $technic_video_link;
+        $this->technic_image = $technic_image;
 
         return $this;
     }
