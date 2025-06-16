@@ -50,7 +50,7 @@ class TechnicsRepository extends ServiceEntityRepository
                     tec.technic_name,
                     tecfo.technic_form_name,
                     tec.technic_explanations,
-                    tec.technic_video_link
+                    tec.technic_image
             FROM App\Entity\Technics tec
                 INNER JOIN App\Entity\TechnicForms tecfo
             '
@@ -73,7 +73,7 @@ class TechnicsRepository extends ServiceEntityRepository
                     tec.technic_name,
                     --tecfo.technic_form_name,
                     tec.technic_explanations,
-                    tec.technic_video_link                    
+                    tec.technic_image                    
             FROM App\Entity\Technics tec
             --INNER JOIN App\Entity\TechnicForms tecfo
             WHERE tec.id = :id'
